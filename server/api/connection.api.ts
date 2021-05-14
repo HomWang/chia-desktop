@@ -68,6 +68,8 @@ export default function init() {
           certPath: connectionToAdd.crt,
           keyPath: connectionToAdd.key,
         });
+        const address = await wallet.getNextAddress(connectionToAdd.id)
+        console.log(address)
         const x = await wallet.getHeightInfo();
         console.log('wallet height', x);
         await db.connection.asyncInsert({
