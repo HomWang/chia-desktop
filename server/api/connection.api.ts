@@ -36,7 +36,8 @@ export default function init() {
         certPath: connectionToAdd.crt,
         keyPath: connectionToAdd.key,
       });
-      console.log(JSON.stringify(fullNode.getBlockchainState()))
+      const blockchain = await fullNode.getBlockchainState();
+      console.log(blockchain)
       // if (Object.values(connectionToAdd).some((property) => !property)) {
       //   return handleError({ code: 'MISSINGPROPERTIES' }, res);
       // }
