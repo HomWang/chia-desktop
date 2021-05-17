@@ -31,8 +31,9 @@ export default function init() {
     async (req, res) => {
       const connectionToAdd = req.body;
       const fullNode = new FullNode({
-        hostname: connectionToAdd.host,
-        port: connectionToAdd.port,
+        protocol: "https",
+        hostname: "127.0.0.1",
+        port: 8555,
         certPath: connectionToAdd.crt,
         keyPath: connectionToAdd.key,
       });
@@ -69,8 +70,9 @@ export default function init() {
     async (req, res) => {
       const connectionToAdd = req.body;
       const wallet = new Wallet({
-        hostname: connectionToAdd.host,
-        port: connectionToAdd.port,
+        protocol: "https",
+        hostname: "127.0.0.1",
+        port: 9256,
         certPath: connectionToAdd.crt,
         keyPath: connectionToAdd.key,
       });
