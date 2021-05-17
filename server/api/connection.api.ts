@@ -40,7 +40,7 @@ export default function init() {
           certPath: connectionToAdd.crt,
           keyPath: connectionToAdd.key,
         });
-        console.log(fullNode.getBlockchainState())
+        console.log(JSON.stringify(fullNode.getBlockchainState()))
         await fullNode.getBlockchainState();
         await db.connection.asyncInsert({
           ...connectionToAdd,
