@@ -40,6 +40,7 @@ export default function init() {
           certPath: connectionToAdd.crt,
           keyPath: connectionToAdd.key,
         });
+        console.log(fullNode.getBlockchainState())
         await fullNode.getBlockchainState();
         await db.connection.asyncInsert({
           ...connectionToAdd,
@@ -69,7 +70,9 @@ export default function init() {
           keyPath: connectionToAdd.key,
         });
         const address = await wallet.getNextAddress(connectionToAdd.id)
+        const getWallets = await wallet.getWallets()
         console.log(address)
+        console.log(getWallets)
         const x = await wallet.getHeightInfo();
         console.log('wallet height', x);
         await db.connection.asyncInsert({
