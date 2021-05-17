@@ -30,28 +30,35 @@ export default function init() {
     '/fullNode',
     async (req, res) => {
       const connectionToAdd = req.body;
-      if (Object.values(connectionToAdd).some((property) => !property)) {
-        return handleError({ code: 'MISSINGPROPERTIES' }, res);
-      }
-      try {
-        const fullNode = new FullNode({
-          hostname: connectionToAdd.host,
-          port: connectionToAdd.port,
-          certPath: connectionToAdd.crt,
-          keyPath: connectionToAdd.key,
-        });
-        console.log(JSON.stringify(fullNode.getBlockchainState()))
-        await fullNode.getBlockchainState();
-        await db.connection.asyncInsert({
-          ...connectionToAdd,
-          _id: v4(),
-          timestamp: new Date(),
-        });
-        res.status(201);
-        res.send();
-      } catch (error) {
-        return handleError(error, res);
-      }
+      const fullNode = new FullNode({
+        hostname: connectionToAdd.host,
+        port: connectionToAdd.port,
+        certPath: connectionToAdd.crt,
+        keyPath: connectionToAdd.key,
+      });
+      console.log(JSON.stringify(fullNode.getBlockchainState()))
+      // if (Object.values(connectionToAdd).some((property) => !property)) {
+      //   return handleError({ code: 'MISSINGPROPERTIES' }, res);
+      // }
+      // try {
+      //   const fullNode = new FullNode({
+      //     hostname: connectionToAdd.host,
+      //     port: connectionToAdd.port,
+      //     certPath: connectionToAdd.crt,
+      //     keyPath: connectionToAdd.key,
+      //   });
+      //   console.log(JSON.stringify(fullNode.getBlockchainState()))
+      //   await fullNode.getBlockchainState();
+      //   await db.connection.asyncInsert({
+      //     ...connectionToAdd,
+      //     _id: v4(),
+      //     timestamp: new Date(),
+      //   });
+      //   res.status(201);
+      //   res.send();
+      // } catch (error) {
+      //   return handleError(error, res);
+      // }
     }
   );
 
@@ -59,32 +66,44 @@ export default function init() {
     '/wallet',
     async (req, res) => {
       const connectionToAdd = req.body;
-      if (Object.values(connectionToAdd).some((property) => !property)) {
-        return handleError({ code: 'MISSINGPROPERTIES' }, res);
-      }
-      try {
-        const wallet = new Wallet({
-          hostname: connectionToAdd.host,
-          port: connectionToAdd.port,
-          certPath: connectionToAdd.crt,
-          keyPath: connectionToAdd.key,
-        });
-        const address = await wallet.getNextAddress(connectionToAdd.id)
-        const getWallets = await wallet.getWallets()
-        console.log(address)
-        console.log(getWallets)
-        const x = await wallet.getHeightInfo();
-        console.log('wallet height', x);
-        await db.connection.asyncInsert({
-          ...connectionToAdd,
-          _id: v4(),
-          timestamp: new Date(),
-        });
-        res.status(201);
-        res.send();
-      } catch (error) {
-        return handleError(error, res);
-      }
+      const wallet = new Wallet({
+        hostname: connectionToAdd.host,
+        port: connectionToAdd.port,
+        certPath: connectionToAdd.crt,
+        keyPath: connectionToAdd.key,
+      });
+      const address = await wallet.getNextAddress(connectionToAdd.id)
+      const getWallets = await wallet.getWallets()
+      console.log(address)
+      console.log(getWallets)
+      const x = await wallet.getHeightInfo();
+      console.log('wallet height', x);
+      // if (Object.values(connectionToAdd).some((property) => !property)) {
+      //   return handleError({ code: 'MISSINGPROPERTIES' }, res);
+      // }
+      // try {
+      //   const wallet = new Wallet({
+      //     hostname: connectionToAdd.host,
+      //     port: connectionToAdd.port,
+      //     certPath: connectionToAdd.crt,
+      //     keyPath: connectionToAdd.key,
+      //   });
+      //   const address = await wallet.getNextAddress(connectionToAdd.id)
+      //   const getWallets = await wallet.getWallets()
+      //   console.log(address)
+      //   console.log(getWallets)
+      //   const x = await wallet.getHeightInfo();
+      //   console.log('wallet height', x);
+      //   await db.connection.asyncInsert({
+      //     ...connectionToAdd,
+      //     _id: v4(),
+      //     timestamp: new Date(),
+      //   });
+      //   res.status(201);
+      //   res.send();
+      // } catch (error) {
+      //   return handleError(error, res);
+      // }
     }
   );
   router.post<{}, CreateConnectionResponse | Error, CreateConnectionParams>(
