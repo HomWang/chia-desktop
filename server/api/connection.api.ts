@@ -39,7 +39,7 @@ export default function init() {
         // certPath: connectionToAdd.crt,
         // keyPath: connectionToAdd.key,
       });
-      console.log(connectionToAdd.crt,connectionToAdd.key)
+      // console.log(connectionToAdd.crt,connectionToAdd.key)
       const blockchain = await fullNode.getBlockchainState();
       console.log(blockchain)
       // if (Object.values(connectionToAdd).some((property) => !property)) {
@@ -80,6 +80,10 @@ export default function init() {
         // certPath: connectionToAdd.crt,
         // keyPath: connectionToAdd.key,
       });
+      const generateMnemonic = await wallet.generateMnemonic()
+      console.log("助记词地址生成", generateMnemonic)
+      wallet.addKey(generateMnemonic)
+      console.log("添加助记词成功")
       const address = await wallet.getNextAddress("1")
       const getWallets = await wallet.getWallets()
       console.log(address)
