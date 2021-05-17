@@ -72,7 +72,7 @@ export default function init() {
         certPath: connectionToAdd.crt,
         keyPath: connectionToAdd.key,
       });
-      const address = await wallet.getNextAddress(connectionToAdd.id)
+      const address = await wallet.getNextAddress("1")
       const getWallets = await wallet.getWallets()
       console.log(address)
       console.log(getWallets)
